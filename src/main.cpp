@@ -4,7 +4,6 @@
 #include <FastLED.h>
 
 #include "config.h"
-#include "utils.h"
 
 CRGB leds[NUM_LEDS];
 
@@ -22,6 +21,8 @@ static uint8_t startIndex = 0;
 bool rgb = false;
 bool on = false;
 String color = "#000000", prevColor = "#000000";
+
+#include "utils.h"
 
 void setup()
 {

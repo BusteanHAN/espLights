@@ -145,6 +145,9 @@ void messageReceived(String &topic, String &payload)
   out["color"] = color;
   out["rgbMode"] = rgb ? "ON" : "OFF";
   client.publish((String)UNIQUE_TOPIC + "/state", out.dump().c_str());
+  #ifdef REPORTS_STATE_TO_GENERAL_TOPIC
+    client.publish((String)GENERAL_TOPIC + "/state", out.dump().c_str());
+  #endif
 }
 
 void lightLoop()
