@@ -97,7 +97,7 @@ void messageReceived(String &topic, String &payload)
   json in = json::parse(payload);
   on = !in["state"].is_null() ? in["state"] == "ON" ? true : false : on;
   prevColor = color;
-  color = !in["color"].is_null() ? String(in["color"].dump().c_str()) : color;
+  color = (!in["color"].is_null() && (String(in["color"].dump().c_str()).charAt(1) == '#')) ? String(in["color"].dump().c_str()) : color;
   rgb = !in["rgbMode"].is_null() ? in["rgbMode"] == "ON" ? true : false : rgb;
   if (prevColor != color) rgb = false;
   json out;
