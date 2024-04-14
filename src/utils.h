@@ -76,9 +76,9 @@ uint8_t hexConcat(uint8_t a, uint8_t b)
 
 uint8_t hexStringToUint8(char a)
 {
-  return a - (((int)a > 47 && (int)a < 58)  ? 48 :         //character range for numeric characters; subtract 48 to get to int 0-9
-              ((int)a > 64 && (int)a < 91)  ? 55 :         //character range for capital letters; subtract 55 to get to int 10-15 (0xA-0xF)
-              ((int)a > 96 && (int)a < 123) ? 87 : 0);     //character range for lowercase letters; subtract 87 to get to int 10-15 (0xA-0xF)
+  return a - ((a >= '0' && a <= '9')  ? 48 :         //character range for numeric characters; subtract 48 to get to int 0-9
+              (a >= 'A' && a <= 'F')  ? 55 :         //character range for capital letters; subtract 55 to get to int 10-15 (0xA-0xF)
+              (a >= 'a' && a <= 'f')  ? 87 : 0);     //character range for lowercase letters; subtract 87 to get to int 10-15 (0xA-0xF)
 }
 
 void FillLEDsFromPaletteColors(uint8_t colorIndex)
