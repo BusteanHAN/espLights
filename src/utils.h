@@ -76,49 +76,9 @@ uint8_t hexConcat(uint8_t a, uint8_t b)
 
 uint8_t hexStringToUint8(char a)
 {
-  switch (a)
-  {
-  case '0':
-    return 0x0;
-  case '1':
-    return 0x1;
-  case '2':
-    return 0x2;
-  case '3':
-    return 0x3;
-  case '4':
-    return 0x4;
-  case '5':
-    return 0x5;
-  case '6':
-    return 0x6;
-  case '7':
-    return 0x7;
-  case '8':
-    return 0x8;
-  case '9':
-    return 0x9;
-  case 'A':
-  case 'a':
-    return 0xA;
-  case 'B':
-  case 'b':
-    return 0xB;
-  case 'C':
-  case 'c':
-    return 0xC;
-  case 'D':
-  case 'd':
-    return 0xD;
-  case 'E':
-  case 'e':
-    return 0xE;
-  case 'F':
-  case 'f':
-    return 0xF;
-  default:
-    return 0x0;
-  }
+  return a - (((int)a > 47 && (int)a < 58)  ? 48 :         //character range for numeric characters; subtract 48 to get to int 0-9
+              ((int)a > 64 && (int)a < 91)  ? 55 :         //character range for capital letters; subtract 55 to get to int 10-15 (0xA-0xF)
+              ((int)a > 96 && (int)a < 123) ? 87 : 0);     //character range for lowercase letters; subtract 87 to get to int 10-15 (0xA-0xF)
 }
 
 void FillLEDsFromPaletteColors(uint8_t colorIndex)
@@ -132,7 +92,7 @@ void FillLEDsFromPaletteColors(uint8_t colorIndex)
 
 void messageReceived(String &topic, String &payload)
 {
-  Serial.println("incoming: " + topic + " - " + payload);
+  // Serial.println("incoming: " + topic + " - " + payload);
 
   json in = json::parse(payload);
   on = !in["state"].is_null() ? in["state"] == "ON" ? true : false : on;
